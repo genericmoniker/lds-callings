@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 # Heroku repository:
 add-apt-repository "deb https://cli-assets.heroku.com/branches/stable/apt ./"
@@ -7,3 +8,4 @@ apt-get update
 
 apt-get install -y python3.6 python3.6-venv heroku redis-server
 python3.6 -m venv .env
+.env/bin/pip install -r requirements.txt
