@@ -37,17 +37,37 @@ def login(username=None, password=None):
     s = requests.Session()
     url = service_config()['auth-url']
     data = {'username': username, 'password': password}
-    r = s.post(url, data)
+    r = s.post(url, data, allow_redirects=False)
     if r.status_code != 200:
         raise AuthenticationError(r)
     return s
 
 
-def fetch_current_user_unit(s):
-    """Fetch the unit number of the logged-in user.
+def fetch_current_user_detail(s):
+    """Fetch the details of the logged-in user.
 
     :param s: an authenticated "requests" session.
-    :return: unit number as a string.
+    :return: deserialized JSON detail data.
+    """
+    url = service_config()['current-user-detail']
+    r = s.get(url)
+    r.raise_for_status()
+    return r.json()
+
+
+def fetch_current_user_assignments(s):
+    """Fetch the member assignments of the logged-in user.
+
+    :param s: an authenticated "requests" session.
+    :return: deserialized JSON assignment data.
+    """
+
+
+def fetch_current_user_id(s):
+    """Fetch the member id of the logged-in user.
+
+    :param s: an authenticated "requests" session.
+    :return: member id as a string.
     """
 
 
