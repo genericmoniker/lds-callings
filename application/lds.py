@@ -1,3 +1,8 @@
+"""
+Access to the LDS Tools web services.
+
+Documentation: http://tech.lds.org/wiki/LDS_Tools_Web_Services
+"""
 import os
 import requests
 
@@ -10,7 +15,6 @@ _service_config = None
 
 
 def service_config():
-
     """Get the web service configuration.
 
     :return: deserialized JSON service configuration.
@@ -28,7 +32,7 @@ def login(username=None, password=None):
 
     :param: username, or None to get from an LDS_USERNAME environment variable.
     :param: password, or None to get from an LDS_PASSWORD environment variable.
-    :return: a "requests" session with login cookies set.
+    :return: a "requests" session with login cookies set, current user detail.
     :raise: AuthenticationError if the credentials are incorrect.
     """
     username = username or os.environ.get('LDS_USERNAME')
@@ -40,7 +44,7 @@ def login(username=None, password=None):
     r = s.post(url, data, allow_redirects=False)
     if r.status_code != 200:
         raise AuthenticationError(r)
-    return s
+    return s, fetch_current_user_detail(s)
 
 
 def fetch_current_user_detail(s):
@@ -74,10 +78,15 @@ def fetch_current_user_id(s):
 def fetch_callings(s, unit):
     """Fetch the directory with callings for given unit.
 
-    :param unit: unit number as a string.
+    :param unit: unit number.
     :param s: an authenticated "requests" session.
     :return: deserialized JSON callings data.
     """
+    unit = str(unit)
+    url = service_config()['unit-members-and-callings'].replace('%@', unit)
+    r = s.get(url)
+    r.raise_for_status()
+    return r.json()
 
 
 if __name__ == '__main__':
