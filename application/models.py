@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, BigInteger
 
 from application.database import Model
 
@@ -14,7 +14,7 @@ class User(Model):
 
 class Individual(Model):
     """An individual in a unit."""
-    id = Column(Integer, primary_key=True)
+    id = Column(BigInteger, primary_key=True)
     preferred_name = Column(String)
 
 
