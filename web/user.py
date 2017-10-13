@@ -45,6 +45,7 @@ def user_login(username, password):
 
 
 def user_is_authorized(user_detail):
+    """Determine if a user is authorized to use this application."""
     unit_number = user_detail['homeUnitNbr']
     for unit in user_detail['units'][0]['localUnits']:
         if unit['unitNo'] == unit_number:

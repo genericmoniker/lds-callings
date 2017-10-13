@@ -11,5 +11,7 @@ python3.6 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 
 # Can I do this here?
-sudo -u postgres createuser -s $(whoami); createdb lds-callings
+sudo -u postgres createuser -s $(whoami)
+createdb lds-callings
+createdb createdb lds-callings-test
 # DATABASE_URL=postgres:///lds-callings
