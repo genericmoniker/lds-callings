@@ -28,5 +28,3 @@ def db():
         yield database
     finally:
         database.cleanup()
-
-

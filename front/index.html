@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LDS Callings</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+          crossorigin="anonymous">
 </head>
 <body>
 
-<hello></hello>
+<app></app>
 
-<script src="tags/hello.tag" type="riot/tag"></script>
-<script src="https://cdn.jsdelivr.net/npm/riot@3.6/riot+compiler.min.js"></script>
+<script src="tags/app.tag" type="riot/tag"></script>
+<script src="tags/login.tag" type="riot/tag"></script>
+<script src="https://cdn.jsdelivr.net/npm/riot@3.6/riot+compiler.js"></script> <!-- todo: switch to .min.js -->
 <script>
     riot.mount('*');
 </script>

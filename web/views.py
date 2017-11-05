@@ -2,6 +2,7 @@ import os
 
 from flask import g, send_from_directory, request, jsonify
 from flask_httpauth import HTTPTokenAuth
+from werkzeug.exceptions import abort
 
 from application.models import User
 from application.tenant import activate_tenant
@@ -25,6 +26,8 @@ def verify_token(token):
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
+    if not data:
+        abort(400, 'Credentials required')
     username = data.get('username')
     password = data.get('password')
     token = user_login(username, password)

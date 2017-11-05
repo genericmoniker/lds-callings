@@ -38,5 +38,3 @@ class Calling(Model):
     position_id = Column(Integer)
     sustained = Column(DateTime)
     released = Column(Boolean)
-
-

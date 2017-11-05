@@ -42,6 +42,7 @@ def user_login(username, password):
         db.session.add(user)
         db.session.commit()
     synchronize_async.delay(s, unit)
+    return generate_auth_token()
 
 
 def user_is_authorized(user_detail):
