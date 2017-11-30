@@ -4,18 +4,17 @@ from flask import g, send_from_directory, request, jsonify
 from flask_httpauth import HTTPTokenAuth
 from werkzeug.exceptions import abort
 
-from application.models import User
 from application.tenant import activate_tenant
 from web.app import app, db
-from web.user import user_login
+from web.user import user_login, verify_auth_token
 
 static_dir = os.path.normpath(os.path.join(__file__, '../../front'))
-auth = HTTPTokenAuth(scheme='Token')
+auth = HTTPTokenAuth(scheme='Bearer')
 
 
 @auth.verify_token
 def verify_token(token):
-    user = User.verify_auth_token(token)
+    user = verify_auth_token(token)
     if user:
         g.current_user = user
         activate_tenant(db, user.tenant)
@@ -31,13 +30,13 @@ def login():
     username = data.get('username')
     password = data.get('password')
     token = user_login(username, password)
-    return jsonify({'token': token})
+    return jsonify({'token': token.decode('ascii')})
 
 
 @app.route('/api/callings')
 @auth.login_required
 def callings():
-    return {}
+    return jsonify({})
 
 
 @app.route('/<path:path>', methods=['GET'])

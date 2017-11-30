@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 
 from application.database import Database
@@ -12,6 +13,7 @@ def create_app():
     app = Flask(__name__)
     setup_logging(app.logger)
     banner(app.logger, ' web ')
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY').encode()
     db = Database()
 
     @app.teardown_appcontext
