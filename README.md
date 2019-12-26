@@ -1,6 +1,8 @@
 LDS Callings
 ============
 
+**Archived: No active development planned for the near future.**
+
 Setup (Ubuntu 17)
 -----------------
 
